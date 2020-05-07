@@ -1,3 +1,4 @@
+from collections import defaultdict
 from collections.abc import MutableMapping
 
 
@@ -24,5 +25,14 @@ class DotDictMixin:
 
 class DotDictWrapper(DotDictMixin, MutableMapping):
     """A wrapper class for providing attribute access to dict-like objects."""
+
+
+class DotDict(DotDictMixin, dict):
+    """Standard dictionary with attribute access."""
+
+
+class DotDefaultDict(DotDictMixin, defaultdict):
+    """Standard defaultdict with attribute access."""
+
 
 # vim:et sw=4 ts=4

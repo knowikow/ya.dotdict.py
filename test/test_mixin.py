@@ -1,10 +1,6 @@
 import pytest
 
-from ya.dotdict import DotDictMixin
-
-
-class SimpleDict(DotDictMixin, dict):
-    pass
+from ya.dotdict import DotDict, DotDictMixin
 
 
 class ComplexBaseDict(dict):
@@ -44,7 +40,7 @@ class ComplexSlots(DotDictMixin, ComplexBaseSlots):
 
 
 def test_dict_getitem():
-    instance = SimpleDict()
+    instance = DotDict()
 
     instance['foo'] = 'bar'
 
@@ -53,7 +49,7 @@ def test_dict_getitem():
 
 
 def test_dict_setitem():
-    instance = SimpleDict()
+    instance = DotDict()
 
     instance.foo = 'bar'
 
@@ -62,7 +58,7 @@ def test_dict_setitem():
 
 
 def test_dict_delitem():
-    instance = SimpleDict()
+    instance = DotDict()
 
     instance['foo'] = 'bar'
 
