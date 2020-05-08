@@ -13,7 +13,9 @@ The library provides these classes:
 - ``ya.dotdict.DotDictMixin``: a mixin class that can be used to add attribute-style access to any dict-like class.
   ``ya.dotdict.DotDict`` and ``ya.dotdict.DotDefaultDict`` are both implemented in terms of this mixin class
 
-All the code examples assume ``from ya.dotdict import *``.
+All the code examples assume::
+
+    >>> from ya.dotdict import *
 
 ``DotDict``
 ===========
