@@ -34,7 +34,7 @@ All the code examples assume ``from ya.dotdict import *``.
 
 ``DotDict`` can be used as a replacement for ``defaultict``::
 
-    >>> d = DotDefaultDict(lambda: eggs)
+    >>> d = DotDefaultDict(lambda: 'eggs')
     >>> d.spam
     'eggs'
     >>> d.spam = 100
