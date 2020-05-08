@@ -30,25 +30,25 @@ class DotDictWrapper(DotDictMixin, MutableMapping):
 class DotDict(DotDictMixin, dict):
     """Standard dictionary with attribute access.
 
-        >>> d = DotDict()
-        >>> d['spam'] = 'eggs'
-        >>> d.spam
-        'eggs'
-        >>> d.spam = 100
-        >>> d['spam']
-        100
+    >>> d = DotDict()
+    >>> d['spam'] = 'eggs'
+    >>> d.spam
+    'eggs'
+    >>> d.spam = 100
+    >>> d['spam']
+    100
     """
 
 
 class DotDefaultDict(DotDictMixin, defaultdict):
     """Standard defaultdict with attribute access.
 
-        >>> d = DotDefaultDict(lambda: eggs)
-        >>> d.spam
-        'eggs'
-        >>> d.spam = 100
-        >>> d['spam']
-        100
+    >>> d = DotDefaultDict(lambda: eggs)
+    >>> d.spam
+    'eggs'
+    >>> d.spam = 100
+    >>> d['spam']
+    100
     """
 
 
