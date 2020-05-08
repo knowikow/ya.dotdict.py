@@ -28,11 +28,28 @@ class DotDictWrapper(DotDictMixin, MutableMapping):
 
 
 class DotDict(DotDictMixin, dict):
-    """Standard dictionary with attribute access."""
+    """Standard dictionary with attribute access.
+
+        >>> d = DotDict()
+        >>> d['spam'] = 'eggs'
+        >>> d.spam
+        'eggs'
+        >>> d.spam = 100
+        >>> d['spam']
+        100
+    """
 
 
 class DotDefaultDict(DotDictMixin, defaultdict):
-    """Standard defaultdict with attribute access."""
+    """Standard defaultdict with attribute access.
+
+        >>> d = DotDefaultDict(lambda: eggs)
+        >>> d.spam
+        'eggs'
+        >>> d.spam = 100
+        >>> d['spam']
+        100
+    """
 
 
 # vim:et sw=4 ts=4
