@@ -43,7 +43,7 @@ class DotDict(DotDictMixin, dict):
 class DotDefaultDict(DotDictMixin, defaultdict):
     """Standard defaultdict with attribute access.
 
-    >>> d = DotDefaultDict(lambda: eggs)
+    >>> d = DotDefaultDict(lambda: 'eggs')
     >>> d.spam
     'eggs'
     >>> d.spam = 100

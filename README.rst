@@ -15,6 +15,10 @@ The library provides these classes:
 
 All the code examples assume ``from ya.dotdict import *``.
 
+::
+
+    >>> from ya.dotdict import *
+
 ``DotDict``
 ===========
 
