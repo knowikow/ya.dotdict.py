@@ -1,5 +1,5 @@
-.. image:: https://github.com/knowikow/ya.dotdict.py/workflows/Python%20package/badge.svg
-   :target: https://github.com/knowikow/ya.dotdict.py/workflows/Python%20package/badge.svg
+.. image:: https://github.com/knowikow/ya.dotdict.py/workflows/test/badge.svg
+   :target: https://github.com/knowikow/ya.dotdict.py/workflows/test/badge.svg
 
 ###################
 Yet Another DotDict
