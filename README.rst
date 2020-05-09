@@ -55,14 +55,22 @@ Create default values (like ``collections.defaultdict``)
 
 If the default value factory takes an argument, then the key is passed to it::
 
-   >>> d.default_factory = lambda key: [key, 1000]
+   >>> d._default_factory = lambda key: [key, 1000]
    >>> d.foo
    ['foo', 1000]
+
+
+If the default value factory takes more than one argument, a TypeError will be raised::
+
+   >>> d._default_factory = lambda x, y: [x, y]
+   Traceback (most recent call last):
+      ...
+   TypeError: defult_factory can only take zero or one argument
 
 ``DotDictMixin``
 ================
 
 A mixin class to provide attribute access to dict-like classes. ``DotDict`` is implemented using ``DotDictMixin`` like this::
 
-   class DotDict(DotDictMixin, dict): pass
+   class DictClass(DotDictMixin, dict): pass
 

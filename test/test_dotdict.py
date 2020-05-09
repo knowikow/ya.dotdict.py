@@ -1,6 +1,6 @@
 import pytest
 
-from ya.dotdict import DotDefaultDict, DotDict, DotDictMixin, DotDictWrapper
+from ya.dotdict import DotDict, DotDictMixin
 
 
 class ComplexBaseDict(dict):
@@ -69,11 +69,6 @@ def test_slotdict():
         instance['attribute']
 
     assert instance.method() == 'result'
-
-
-def test_defaultdict():
-    instance = DotDefaultDict(lambda: 'eggs')
-    assert instance.spam == 'eggs'
 
 
 # vim:et sw=4 ts=4

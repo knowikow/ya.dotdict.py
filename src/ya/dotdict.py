@@ -1,3 +1,6 @@
+"""Implementation for dotdict"""
+import inspect
+
 
 class DotDictMixin:
     """A mixin class for providing attribute access to dict-like classes."""
@@ -31,9 +34,35 @@ class DotDict(DotDictMixin, dict):
     >>> d['spam']
     100
     """
-    def __init__(self,  default_factory=None, **kwds):
+    __slots__ = '__default_factory'.split()
+
+    def __init__(self, default_factory=None, **kwds):
         super().__init__(**kwds)
         self._default_factory = default_factory
+
+    def __missing__(self, key):
+        if not self.__default_factory:
+            raise KeyError(key)
+
+        result = self.__default_factory(key)
+        self[key] = result
+        return result
+
+    def __set_default_factory(self, default_factory):
+        """Factory function for default values."""
+        if default_factory is None:
+            self.__default_factory = default_factory
+        else:
+            argc = len(inspect.signature(default_factory).parameters)
+            if argc == 0:
+                self.__default_factory = lambda _: default_factory()
+            elif argc == 1:
+                self.__default_factory = default_factory
+            else:
+                raise TypeError(f'defult_factory can only take zero or one argument')
+
+    _default_factory = property(fset=__set_default_factory,
+                                doc=__set_default_factory.__doc__)
 
 
 # vim:et sw=4 ts=4
