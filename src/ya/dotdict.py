@@ -1,5 +1,3 @@
-from collections.abc import MutableMapping
-
 
 class DotDictMixin:
     """A mixin class for providing attribute access to dict-like classes."""
@@ -33,8 +31,9 @@ class DotDict(DotDictMixin, dict):
     >>> d['spam']
     100
     """
-    def __init__(self, /, default_factory=None, **kwds):
-        self._default_factory = default_factory)
+    def __init__(self,  /, default_factory=None, **kwds):
+        super().__init__(**kwds)
+        self._default_factory = default_factory
 
 
 # vim:et sw=4 ts=4
