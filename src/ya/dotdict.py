@@ -31,7 +31,7 @@ class DotDict(DotDictMixin, dict):
     >>> d['spam']
     100
     """
-    def __init__(self,  /, default_factory=None, **kwds):
+    def __init__(self,  default_factory=None, **kwds):
         super().__init__(**kwds)
         self._default_factory = default_factory
 
