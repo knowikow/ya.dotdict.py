@@ -28,7 +28,7 @@ Simple use case: access dictionary items as attributes
    >>> d.spam = 100
    >>> d['spam']
    100
-   
+
 Deleting attributes also works as expected::
 
    >>> del d.spam
@@ -58,11 +58,11 @@ If the default value factory takes an argument, then the key is passed to it::
    >>> d.default_factory = lambda key: [key, 1000]
    >>> d.foo
    ['foo', 1000]
-   
+
 ``DotDictMixin``
 ================
 
 A mixin class to provide attribute access to dict-like classes. ``DotDict`` is implemented using ``DotDictMixin`` like this::
 
    class DotDict(DotDictMixin, dict): pass
-    
+

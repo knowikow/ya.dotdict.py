@@ -1,4 +1,3 @@
-from collections import defaultdict
 from collections.abc import MutableMapping
 
 
@@ -23,10 +22,6 @@ class DotDictMixin:
             del self[name]
 
 
-class DotDictWrapper(DotDictMixin, MutableMapping):
-    """A wrapper class for providing attribute access to dict-like objects."""
-
-
 class DotDict(DotDictMixin, dict):
     """Standard dictionary with attribute access.
 
@@ -38,18 +33,8 @@ class DotDict(DotDictMixin, dict):
     >>> d['spam']
     100
     """
-
-
-class DotDefaultDict(DotDictMixin, defaultdict):
-    """Standard defaultdict with attribute access.
-
-    >>> d = DotDefaultDict(lambda: 'eggs')
-    >>> d.spam
-    'eggs'
-    >>> d.spam = 100
-    >>> d['spam']
-    100
-    """
+    def __init__(self, /, default_factory=None, **kwds):
+        self._default_factory = default_factory)
 
 
 # vim:et sw=4 ts=4
