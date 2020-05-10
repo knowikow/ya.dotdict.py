@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Static code checks
-      uses: TrueBrain/actions-flake8@1.2
+      uses: TrueBrain/actions-flake8@v1.2
 
   build:
 
