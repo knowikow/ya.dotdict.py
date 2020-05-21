@@ -34,14 +34,14 @@ class DotDict(DotDictMixin, dict):
     >>> d['spam']
     100
     """
-    __slots__ = '__default_factory'.split()
+    __slots__ = '__default_factory'.split()  # pragma: no mutate
 
     def __init__(self, default_factory=None, **kwds):
         super().__init__(**kwds)
-        self._default_factory = default_factory
+        self.default_factory = default_factory
 
     def __missing__(self, key):
-        if not self.__default_factory:
+        if self.__default_factory is None:
             raise KeyError(key)
 
         result = self.__default_factory(key)
@@ -51,7 +51,7 @@ class DotDict(DotDictMixin, dict):
     def __set_default_factory(self, default_factory):
         """Factory function for default values."""
         if default_factory is None:
-            self.__default_factory = default_factory
+            self.__default_factory = None
         else:
             argc = len(inspect.signature(default_factory).parameters)
             if argc == 0:
@@ -59,10 +59,12 @@ class DotDict(DotDictMixin, dict):
             elif argc == 1:
                 self.__default_factory = default_factory
             else:
-                raise TypeError(f'defult_factory can only take zero or one argument')
+                raise TypeError(
+                    'default_factory can only take zero or one argument'  # pragma: no mutate
+                )
 
-    _default_factory = property(fset=__set_default_factory,
-                                doc=__set_default_factory.__doc__)
+    default_factory = property(fset=__set_default_factory,
+                               doc=__set_default_factory.__doc__)
 
 
 # vim:et sw=4 ts=4
