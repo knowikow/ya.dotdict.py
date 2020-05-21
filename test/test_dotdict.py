@@ -1,74 +1,97 @@
 import pytest
 
-from ya.dotdict import DotDict, DotDictMixin
+from ya.dotdict import DotDict  # , DotDictMixin
 
 
-class ComplexBaseDict(dict):
-    def __init__(self, *args, **kwds):
-        super().__init__(*args, **kwds)
-        self.base_attribute = 'value'
+def test_items():
+    "setitem and getitem work like with dict"
+    instance = DotDict()
+    instance['spam'] = 'eggs'
 
-    def base_method(self):
-        return 'base_method'
-
-
-class ComplexBaseSlots(dict):
-    def __init__(self, *args, **kwds):
-        super().__init__(*args, **kwds)
-        self.base_attribute = 'value'
-
-    def base_method(self):
-        return 'base_method'
+    assert instance['spam'] == 'eggs'
 
 
-class ComplexWithSlots(DotDictMixin, ComplexBaseSlots):
-    __slots__ = 'attribute'.split()
+def test_attrs():
+    "getattr and setattr are symmetric"
+    instance = DotDict()
+    instance.spam = 'eggs'
 
-    def __init__(self, *args, **kwds):
-        super().__init__(*args, **kwds)
-        self.attribute = 'value'
-
-    def method(self):
-        return 'result'
+    assert instance.spam == 'eggs'
 
 
-def test_dotdict():
+def test_setattr():
+    "setattr does the same thing as setitem"
+    instance = DotDict()
+    instance.spam = 'eggs'
+
+    assert instance['spam'] == 'eggs'
+
+
+def test_getattr():
+    "getattr does the same thing as getitem"
+    instance = DotDict()
+    instance['spam'] = 'eggs'
+
+    assert instance.spam == 'eggs'
+
+
+def test_key_error():
+    "Trying to get a non-existing key will raise an AttributeError"
+    instance = DotDict()
+    with pytest.raises(AttributeError):
+        instance.spam
+
+
+def test_init_kwargs():
+    "Initial items can be given as keyword arguments"
+    instance = DotDict(spam='eggs')
+    assert instance['spam'] == 'eggs'
+    assert instance.spam == 'eggs'
+
+
+def test_default_factory():
+    "By giving a default factory we get defaultdict behaviour"
+    instance = DotDict(default_factory=lambda: 'foobar')
+
+    assert instance.spam == 'foobar'
+    assert instance['eggs'] == 'foobar'
+
+
+def test_default_factory_inserts_value():
+    "By giving a default factory we get defaultdict behaviour"
+    instance = DotDict(default_factory=lambda: 'foobar')
+
+    assert 'spam' not in instance
+    assert instance.spam == 'foobar'
+    assert 'spam' in instance
+    assert instance['spam'] == 'foobar'
+
+
+def test_set_default_factory():
+    "By giving a default factory we get defaultdict behaviour"
     instance = DotDict()
 
     with pytest.raises(AttributeError):
-        instance.foo
+        instance.spam
 
-    instance['foo'] = 'spam'
-    assert instance['foo'] == 'spam'
-    assert instance.foo == 'spam'
+    instance.default_factory = lambda: 'foobar'
 
-    instance.foo = 'eggs'
-    assert instance['foo'] == 'eggs'
-    assert instance.foo == 'eggs'
-
-    del instance.foo
-    with pytest.raises(AttributeError):
-        instance.foo
+    assert instance.spam == 'foobar'
+    assert instance['eggs'] == 'foobar'
 
 
-def test_slotdict():
-    instance = ComplexWithSlots()
+def test_default_factory_with_arg():
+    "Default factories can take the key as argument"
+    instance = DotDict(default_factory=lambda x: f'value of {x}')
 
-    instance.foo = 'bar'
+    assert instance.spam == 'value of spam'
+    assert instance['eggs'] == 'value of eggs'
 
-    assert instance['foo'] == 'bar'
-    assert instance.foo == 'bar'
 
-    with pytest.raises(KeyError):
-        instance['attribute']
-    assert instance.attribute == 'value'
-
-    instance.attribute = 22
-    assert instance.attribute == 22
-    with pytest.raises(KeyError):
-        instance['attribute']
-
-    assert instance.method() == 'result'
+def test_invalid_default_factory():
+    "Default factory must either take zero or one argument"
+    with pytest.raises(TypeError):
+        DotDict(default_factory=lambda x, y: None)
 
 
 # vim:et sw=4 ts=4
