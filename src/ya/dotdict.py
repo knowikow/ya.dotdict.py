@@ -2,6 +2,9 @@
 import inspect
 
 
+__version__ = '1.0.0b1'
+
+
 class DotDictMixin:
     """A mixin class for providing attribute access to dict-like classes."""
     def __getattr__(self, name):
